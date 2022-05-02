@@ -21,16 +21,19 @@ namespace higherlower
         public static string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         public Button[] tileControls;
         public Button[] alphaControls = new Button[alphabet.Length];
+        public bool[] isSame; 
 
         public Hangman()
         {
             InitializeComponent();
             GenerateWord();
+            label1.Text = myWord;
             GenerateAlphaButtons();
         }
         public void GenerateWord()
         {
             myWord = words[rand.Next(0, words.Length)];
+            isSame = new bool[myWord.Length];
             tileControls = new Button[myWord.Length];
             for (int i = 0; i < myWord.Length; i++)
             {
@@ -39,7 +42,7 @@ namespace higherlower
                     Size = new Size(50, 50),
                     Location = new Point(i * 50, 150),
                     Visible = true,
-                    BackColor = Color.Black,
+                    BackColor = Color.LightGray,
                 };
                 tileControls[i] = btn;
                 this.Controls.Add(tileControls[i]);
@@ -60,9 +63,26 @@ namespace higherlower
                 };
                 alphaControls[i] = btn;
                 this.Controls.Add(alphaControls[i]);
-            }
+                btn.Click += (sender, args) =>
+                {
+                    for (int j = 0; j < myWord.Length; j++)
+                    {
+                        if (myWord[j].ToString() == btn.Text)
+                        {
+                            tileControls[j].Text = btn.Text;
+                            isSame[j] = true;
+                        }
+                        if (!isSame.Contains(false))
+                        {
+                            MessageBox.Show("hjdksh");
+                        }
+
+                    }
+                   
+                };
 
         }
 
     }
+}
 }
